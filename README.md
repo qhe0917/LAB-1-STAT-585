@@ -7,3 +7,6 @@ Team #4: Qing He, Hao Wang, and Xiyuan Sun
 
 
 make changes from QH
+
+
+I did some work for this lab, see updated `.rmd` file plz. 
