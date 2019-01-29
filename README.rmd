@@ -1,0 +1,114 @@
+---
+title: "README"
+author: 'Team #4'
+date: "1/28/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(ggplot2)
+require(tidyverse)
+```
+
+## Part 1 Link to our git repo  
+https://github.com/qhe0917/LAB-1-STAT-585 
+
+## Part 2 Building a book   
+Deliverable (1): what is the last word in chapter 15? - You don't have to answer this question, if things don't work, but please answer the next one and see the next page.  
+`pseudo-class` in reference.
+
+Deliverable (2): Write a paragraph on the biggest problem you encountered when you were building the book, and how you managed to solve it.  
+`Error:` could not find certain packages.   
+`Solution:` download them, but this just can be way too much work to do. (Some packages might need to be downloaded via devtools::install_github("username/reponame"))   
+
+
+## Part 3 Weather stations   
+
+	Variable             Columns    Type
+	----------------------------------------
+	COUNTRY CODE             1-2    Character 2
+	NETWORK CODE               3    Character 1
+	ID PLACEHOLDERS ("00")   4-5    Character 2
+	COOP ID                 6-11    Character *6
+	LATITUDE               13-20    Real      **7
+	LONGITUDE              22-30    Real      **9
+	ELEVATION              33-37    Real      *5
+	STATE                  39-40    Character *2
+	NAME                   42-71    Character *30
+	COMPONENT 1 (COOP ID)  73-78    Character *6
+	COMPONENT 2 (COOP ID)  80-85    Character *6
+	COMPONENT 3 (COOP ID)  87-92    Character *6
+	UTC OFFSET             94-95    Integer   2
+	-----------------------------------------
+
+```{r, message=F, warning=F, include=F, echo=FALSE}
+fwf_sample <- readr_example("fwf-sample.txt")
+cat(read_lines(fwf_sample))
+# You can specify column positions in several ways:
+# 1. Guess based on position of empty columns
+read_fwf(fwf_sample, fwf_empty(fwf_sample, col_names = c("first", "last", "state", "ssn")))
+# 2. A vector of field widths
+read_fwf(fwf_sample, fwf_widths(c(20, 10, 12), c("name", "state", "ssn")))
+# 3. Paired vectors of start and end positions
+read_fwf(fwf_sample, fwf_positions(c(1, 30), c(20, 42), c("name", "ssn")))
+# 4. Named arguments with start and end positions
+read_fwf(fwf_sample, fwf_cols(name = c(1, 20), ssn = c(30, 42)))
+# 5. Named arguments with column widths
+read_fwf(fwf_sample, fwf_cols(name = 20, state = 10, ssn = 12))
+
+# try
+US=read_fwf("ftp://ftp.ncdc.noaa.gov/pub/data/ushcn/v2.5/ushcn-v2.5-stations.txt", 
+           fwf_widths(c(2,1,2,7,
+                        9,11,6,
+                        3,31,7,7,7,
+                        2),
+                      c("CountryCode","NetworkCode","ID","COOPID",
+                      "Latitude","Longtitude","Elevation",
+                      "State","Name","Comp1","Comp2","Comp3",
+                      "UTC")
+                      ),
+           col_types = cols("c","c","c","c",
+                    "d","d","d",
+                    "c","c","c","c","c",
+                    "i")
+           )
+# has error
+head(US)
+```
+
+```{r, message=F, warning=F}
+require(readr)
+# vignette("readr")
+# cat(read_lines("ushcn-v2.5-stations.txt"))
+US=read_fwf("ftp://ftp.ncdc.noaa.gov/pub/data/ushcn/v2.5/ushcn-v2.5-stations.txt", 
+           fwf_cols(CountryCode=c(1,2),Networkcode=c(3,3),ID=c(4,5),COOPID=c(6,11),
+                    Latitude=c(13,20),Longitude=c(22,30),Elevation=c(33,37),
+                    State=c(39,40),Name=c(42,71),Comp1=c(73,78),Comp2=c(80,85),Comp3=c(87,92),
+                    UTC=c(94,95)    ),
+           col_types = cols("c","c","c","c",
+                    "d","d","d",
+                    "c","c","c","c","c",
+                    "i")
+           )
+str(US)
+
+state=map_data("state")
+ggplot(data=state,aes(x=long,y=lat)) + 
+  geom_polygon(aes(group=group),col="grey",alpha=0.4)+
+  geom_point(data=US,aes(x=Longitude,y=Latitude,col=Elevation),size=0.8) +  
+  theme(text = element_text(size=10)) 
+
+```
+
+Deliverable: include the code necessary to read the file and to create the plot in README.Rmd. Assume the data is in the same folder as the README.Rmd file.
+
+## Part 4 More weather data
+```{r, message=F, warning=F}
+```
+
+Deliverable: include the number of files inside the file ushcn.tavg.latest.raw.tar.gz and the name of the file containing the temperature data of your home towns or Fort Dodge, IA (please specify).
+
+
+
+
