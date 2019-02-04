@@ -116,12 +116,12 @@ file=list.files(path="ushcn.v2.5.5.20190204")
 length(file)
 
 # Fort Dodge's location 42.506803, -94.180271
+# US %>% filter(Name=="Fort Dodge")
 US %>% filter(Latitude> 42 & Latitude< 43 & Longitude< -94 & Longitude> -95)
-
 ```
 
 Deliverable: include the number of files inside the file ushcn.tavg.latest.raw.tar.gz and the name of the file containing the temperature data of your home towns or Fort Dodge, IA (please specify).
-`Solution:` file name is `USH00132999.raw.tavg`.
+`Solution:` There are 1218 files in total; file name, which is for Fort Dodge, is `USH00132999.raw.tavg`.
 
 
 
