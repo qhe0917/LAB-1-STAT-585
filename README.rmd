@@ -110,6 +110,7 @@ Deliverable: include the code necessary to read the file and to create the plot 
 ## Part 4 More weather data
 ```{r, message=F, warning=F}
 library(R.utils)
+library(data.table)
 # gunzip("ushcn.tavg.latest.raw.tar.gz")
 untar("ushcn.tavg.latest.raw.tar")
 file=list.files(path="ushcn.v2.5.5.20190204")
@@ -118,6 +119,9 @@ length(file)
 # Fort Dodge's location 42.506803, -94.180271
 # US %>% filter(Name=="Fort Dodge")
 US %>% filter(Latitude> 42 & Latitude< 43 & Longitude< -94 & Longitude> -95)
+
+#Or search by matching the keywords of name
+US[tolower(US$Name) %like% "fort dodge",]
 ```
 
 Deliverable: include the number of files inside the file ushcn.tavg.latest.raw.tar.gz and the name of the file containing the temperature data of your home towns or Fort Dodge, IA (please specify).
