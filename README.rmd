@@ -120,8 +120,14 @@ length(file)
 # US %>% filter(Name=="Fort Dodge")
 US %>% filter(Latitude> 42 & Latitude< 43 & Longitude< -94 & Longitude> -95)
 
-#Or search by matching the keywords of name
+#Or search the name by matching the keywords of name
 US[tolower(US$Name) %like% "fort dodge",]
+
+#the COOPID for Fort Dodge
+ID<-US[tolower(US$Name) %like% "fort dodge",]$COOPID
+
+#search the file names that matchs the COOPID inside the file
+file[file %like% ID]
 ```
 
 Deliverable: include the number of files inside the file ushcn.tavg.latest.raw.tar.gz and the name of the file containing the temperature data of your home towns or Fort Dodge, IA (please specify).
