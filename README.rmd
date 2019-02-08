@@ -70,8 +70,6 @@ untar("ushcn.tavg.latest.raw.tar")
 file=list.files(path="ushcn.v2.5.5.20190204")
 length(file)
 
-# Fort Dodge's location 42.506803, -94.180271
-# US %>% filter(Name=="Fort Dodge")
 #ushcn_data %>% filter(lat> 42 & lat< 43 & long< -94 & long> -95)
 #Or search the name by matching the keywords of name
 ushcn_data[tolower(ushcn_data$name) %like% "fort dodge",]

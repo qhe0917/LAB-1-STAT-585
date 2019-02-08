@@ -244,9 +244,7 @@ untar(&quot;ushcn.tavg.latest.raw.tar&quot;)
 file=list.files(path=&quot;ushcn.v2.5.5.20190204&quot;)
 length(file)</code></pre>
 <pre><code>## [1] 1218</code></pre>
-<pre class="r"><code># Fort Dodge's location 42.506803, -94.180271
-# US %&gt;% filter(Name==&quot;Fort Dodge&quot;)
-#ushcn_data %&gt;% filter(lat&gt; 42 &amp; lat&lt; 43 &amp; long&lt; -94 &amp; long&gt; -95)
+<pre class="r"><code>#ushcn_data %&gt;% filter(lat&gt; 42 &amp; lat&lt; 43 &amp; long&lt; -94 &amp; long&gt; -95)
 #Or search the name by matching the keywords of name
 ushcn_data[tolower(ushcn_data$name) %like% &quot;fort dodge&quot;,]</code></pre>
 <pre><code>## # A tibble: 1 x 13
